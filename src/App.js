@@ -1,13 +1,14 @@
 import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginForm from './components/Login/Login';
+import NavBar from './components/Navbar/Navbar'
 
 
 function App() {
   return (
     <div className="app">
       <BrowserRouter>
-        {/* <Navbar /> */}
+        <NavBar />
         <main>
           <Switch>
             <Route exact path="/" />
