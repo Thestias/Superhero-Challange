@@ -4,7 +4,7 @@ export async function character_search(searchInput) {
     // Remember that this works because we added the reverse "proxy" in package.json
     try {
         let search_character = await axios.get("/search/" + searchInput)
-        if (search_character === 200) {
+        if (search_character.status === 200) {
             return search_character.data
         }
 
