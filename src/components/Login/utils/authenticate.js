@@ -15,13 +15,17 @@ inside the axios.post() request beats me
 // axios.defaults.xsrfCookieName = 'csrftoken'
 // axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
-export async function login(event, email, password) {
-    event.preventDefault();
-    let login_status = await axios.post("http://challenge-react.alkemy.org/", { 'email': email, 'password': password })
+export async function login(email, password) {
 
-    console.log(login_status)
-    if (login_status.status === 200 && login_status.data.info) {
-        window.localStorage.setItem('token', login_status.data.token)
-        return 'Logged in'
+    try {
+        let login_status = await axios.post("http://challenge-react.alkemy.org/", { 'email': email, 'password': password })
+        if (login_status.status === 200 && login_status.data.token) {
+            window.localStorage.setItem('token', login_status.data.token)
+            return 'Logged in'
+        }
+    } catch (err) {
+        if (err.response.status === 401) {
+            return 'Invalid Credentials'
+        }
     }
 }
