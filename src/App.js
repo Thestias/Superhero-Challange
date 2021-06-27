@@ -1,25 +1,33 @@
 import './App.css';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import LoginForm from './components/Login/Login';
-import NavBar from './components/Navbar/Navbar'
+import NavBar from './components/Navbar/Navbar';
+import Home from './components/Home/Home'
 import { Container } from 'react-bootstrap';
-import { AuthProvider } from './contexts/auth-context'
+import { useAuth } from './contexts/auth-context'
 
 
 function App() {
+
+  const { isLogged, setIsLogged } = useAuth()
+
   return (
     <div className="app">
       <BrowserRouter>
 
-        <AuthProvider>
-          <NavBar />
-          <Container>
-            <Switch>
-              <Route exact path="/" />
-              <Route exact path="/login" component={LoginForm} />
-            </Switch>
-          </Container>
-        </AuthProvider>
+        <NavBar />
+        <Container>
+          <Switch>
+            <Route path="/">
+              {isLogged ? <Home /> : <Redirect to="/login" />}
+            </Route>
+
+            <Route path="/login">
+              {isLogged ? <Redirect to="/" /> : <LoginForm />}
+            </Route>
+
+          </Switch>
+        </Container>
 
       </BrowserRouter>
 
