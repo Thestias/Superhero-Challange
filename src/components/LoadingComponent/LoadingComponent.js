@@ -1,6 +1,6 @@
 import loadingGif from "./assets/1488.gif"
 
-function Loading() {
+export function Loading() {
     // Component that adds a loading gif, mainly to use when waiting for API Calls
     return (
         <div>
@@ -9,4 +9,8 @@ function Loading() {
     )
 }
 
-export default Loading
+export function isLoading(loading) {
+    // Checks if an API call was made, if so then replaces the text in the button with a Loading component
+    if (loading === true) { return true }
+    else { return false }
+}
