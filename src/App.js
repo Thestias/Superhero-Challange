@@ -2,19 +2,25 @@ import './App.css';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import LoginForm from './components/Login/Login';
 import NavBar from './components/Navbar/Navbar'
+import { Container } from 'react-bootstrap';
+import { AuthProvider } from './contexts/auth-context'
 
 
 function App() {
   return (
     <div className="app">
       <BrowserRouter>
-        <NavBar />
-        <main>
-          <Switch>
-            <Route exact path="/" />
-            <Route exact path="/login" component={LoginForm} />
-          </Switch>
-        </main>
+
+        <AuthProvider>
+          <NavBar />
+          <Container>
+            <Switch>
+              <Route exact path="/" />
+              <Route exact path="/login" component={LoginForm} />
+            </Switch>
+          </Container>
+        </AuthProvider>
+
       </BrowserRouter>
 
       {/* <footer>
