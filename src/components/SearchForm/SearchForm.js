@@ -4,12 +4,13 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { Loading, isLoading } from '../LoadingComponent/LoadingComponent.js';
 import { useState } from "react";
-import { Redirect, Route } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 
 function SearchForm() {
 
     const [loading, setLoading] = useState(false)
+    let history = useHistory();
 
     /*
 
@@ -20,14 +21,16 @@ function SearchForm() {
     // When submitting the form, also takes in a history hook to redirect
     const onSubmit = values => {
         let found_characters = character_search(values.search)
-        if (found_characters !== 'Error 400 something!') {
-            setLoading(false)
-            return (
-                <Route>
-                    <Redirect to={{ pathname: "/search", state: { found_characters } }}></Redirect>
-                </Route >
-            )
-        }
+        found_characters.then(characters_found => {
+            if (characters_found !== 'Error 400 something!') {
+                setLoading(false)
+                history.push({ pathname: '/search', state: { data: characters_found } })
+
+
+            } else {
+                console.log(characters_found)
+            }
+        })
     }
 
     // Validating Form Fields
@@ -35,8 +38,10 @@ function SearchForm() {
         search: yup.string().required('This field is required'),
     })
 
+    const initialValues = { 'search': '' }
+
     const formik = useFormik({
-        initialValues: { 'search': '' },
+        initialValues,
         onSubmit,
         validationSchema
     })
@@ -45,8 +50,8 @@ function SearchForm() {
     // TODO: Create a more reusable Button loading!
     return (
         <Form className="d-flex gap-3 ms-auto" onSubmit={formik.handleSubmit}>
-            <FormControl size="sm" type="text" placeholder="Search" name="search" {...formik.getFieldProps('search')} />
-            <Button variant="warning" onClick={() => setLoading(true)}>{isLoading(loading) ? <Loading /> : 'Search'}</Button>
+            <FormControl size="sm" type="text" placeholder="Search" id="search" name="search" {...formik.getFieldProps('search')} />
+            <Button variant="warning" type="submit" onClick={() => setLoading(true)}>{isLoading(loading) ? <Loading /> : 'Search'}</Button>
         </Form>
     )
 }
