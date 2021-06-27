@@ -1,5 +1,6 @@
-import { Nav, Navbar, Container } from "react-bootstrap"
+import { Nav, Navbar, Container, Form, Button, FormControl } from "react-bootstrap"
 import { useAuth } from "../../contexts/auth-context";
+import SearchForm from '../SearchForm/SearchForm'
 
 
 function NavigationBar() {
@@ -10,8 +11,12 @@ function NavigationBar() {
         <Navbar bg="dark" variant="dark" expand="lg">
             <Container>
                 <Navbar.Brand>Welcome!</Navbar.Brand>
+
                 <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                 <Navbar.Collapse id="responsive-navbar-nav">
+
+                    <SearchForm />
+
                     {isLogged ?
                         /* If the user is logged */
                         <Nav className="ms-auto">
@@ -25,8 +30,9 @@ function NavigationBar() {
                         </Nav>
                     }
                 </Navbar.Collapse>
-            </Container>
-        </Navbar>
+
+            </Container >
+        </Navbar >
     )
 }
 
