@@ -60,11 +60,16 @@ function AddtoTeam(props) {
             orientation,
             id: props.data.id,
             name: props.data.name,
-            image: props.data.image.url,
-            weight: props.data.appearance.weight,
-            eyeColor: props.data.appearance['eye-color'],
-            hairColor: props.data.appearance['hair-color'],
-            base: props.data.work.base
+            image: {
+                url: props.data.image.url,
+            },
+            appearance: {
+                weight: props.data.appearance.weight,
+                height: props.data.appearance.height,
+                'eye-color': props.data.appearance['eye-color'],
+                'hair-color': props.data.appearance['hair-color'],
+            },
+            work: { base: props.data.work.base }
         }
 
         window.localStorage.setItem('team', JSON.stringify(team))
