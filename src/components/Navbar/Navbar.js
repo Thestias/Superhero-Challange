@@ -1,7 +1,6 @@
 import { Nav, Navbar, Container, Form, Button, FormControl } from "react-bootstrap"
 import { Link, useHistory } from "react-router-dom";
 import { useAuth } from "../../contexts/auth-context";
-import Logout from "../Logout/Logout";
 import SearchForm from '../SearchForm/SearchForm'
 
 
