@@ -6,12 +6,31 @@ import Home from './components/Home/Home';
 import SearchPage from './components/SearchPage/SearchPage';
 import { Container } from 'react-bootstrap';
 import { useAuth } from './contexts/auth-context'
+import { useEffect } from 'react';
 
 
 function App() {
   // TODO: i think the redirects are missing the history handling, add it!
   // TODO: Remember to handle your scret!
   const { isLogged, setIsLogged } = useAuth()
+
+  function setTeamToken() {
+    // If there is no localStorage "team" it creates a new one
+    // Runs once at page load
+    let team = window.localStorage.getItem('team')
+    if (team === null) {
+      window.localStorage.setItem('team', JSON.stringify({
+        lenght: 0,
+        villans_lenght: 0,
+        heroes_lenght: 0,
+        characters: {}
+      }))
+    }
+  }
+
+  useEffect(() => {
+    setTeamToken()
+  }, [])
 
   return (
     <div className="app">
