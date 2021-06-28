@@ -13,7 +13,7 @@ function SearchPage() {
     function checkEmpty() {
         if (location.response === 'error') {
             return (
-                <h1 className="h3 mt-3">There are no characters with that name! </h1>
+                <h1 className="text-center mt-5 bg-warning rounded p-3">There are no characters with that name! </h1>
             )
         } else {
             location = location.results
